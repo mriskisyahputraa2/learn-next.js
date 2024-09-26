@@ -3,6 +3,10 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./navbar";
+import { usePathname } from "next/navigation";
+
+// nonaktifkan navbar login dan register
+const disableNavbar = ["/login", "/register"];
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,12 +31,14 @@ export default function RootLayout({
 }>) {
   // const [state, setState] = useState(0);
 
+  const pathName = usePathname();
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar></Navbar>
+        {!disableNavbar.includes(pathName) && <Navbar />}
         {/* <div>Layout {state}</div> */}
         {/* <button onClick={() => setState(state + 1)}>Klik</button> */}
         {children}
