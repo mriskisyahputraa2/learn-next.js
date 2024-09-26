@@ -13,8 +13,11 @@ export default function Navbar() {
           <Link href="/about">
             <li className="mr-3 text-blue-300 cursor-pointer ">About</li>
           </Link>
-          <Link href="/about/profile-page">
+          <Link href="/about/profile">
             <li className="mr-3 text-blue-300 cursor-pointer ">Profile</li>
+          </Link>
+          <Link href="/contact">
+            <li className="mr-3 text-blue-300 cursor-pointer ">Contact</li>
           </Link>
         </ul>
       </nav>
