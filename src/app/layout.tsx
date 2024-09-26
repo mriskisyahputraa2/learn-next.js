@@ -26,7 +26,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [state, setState] = useState(0);
+  // const [state, setState] = useState(0);
 
   return (
     <html lang="en">
@@ -34,8 +34,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar></Navbar>
-        <div>Layout {state}</div>
-        <button onClick={() => setState(state + 1)}>Klik</button>
+        {/* <div>Layout {state}</div> */}
+        {/* <button onClick={() => setState(state + 1)}>Klik</button> */}
         {children}
       </body>
     </html>
