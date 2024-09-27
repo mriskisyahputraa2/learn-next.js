@@ -2,13 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 const data = [
   {
     id: 1,
-    name: "Sepatu Baru",
+    title: "Sepatu Baru",
     price: 100000,
+    image:
+      "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8caf5d7b-f44e-48e2-82f6-ad62978a6e14/NIKE+DUNK+LOW+RETRO.png",
   },
   {
     id: 2,
-    name: "Baju Baru",
+    title: "Sepatu Nike",
     price: 100000,
+    image:
+      "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8caf5d7b-f44e-48e2-82f6-ad62978a6e14/NIKE+DUNK+LOW+RETRO.png",
   },
 ];
 
