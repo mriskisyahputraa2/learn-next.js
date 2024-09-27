@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="">
           <button
             onClick={() => router.push("/login")}
-            className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer"
+            className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer text-center"
           >
             Login
           </button>
