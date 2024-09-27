@@ -21,6 +21,24 @@ export default function Navbar() {
                 Home
               </li>
             </Link>
+            <Link href="/product">
+              <li
+                className={`mr-3 ${
+                  pathName === "/product" ? "text-blue-300" : "text-white"
+                } cursor-pointer`}
+              >
+                Products
+              </li>
+            </Link>
+            <Link href="/book">
+              <li
+                className={`mr-3 ${
+                  pathName === "/book" ? "text-blue-300" : "text-white"
+                } cursor-pointer`}
+              >
+                Books
+              </li>
+            </Link>
             <Link href="/about">
               <li
                 className={`mr-3 ${
