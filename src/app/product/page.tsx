@@ -4,7 +4,7 @@ type DetailProductPage = { params: { slug: string[] } };
 async function getAllDataProduct() {
   //   const res = await fetch("https://fakestoreapi.com/products");
   const res = await fetch("http://localhost:3000/api/product", {
-    cache: "force-cache",
+    cache: "no-store",
     // melakukan update data products berdasarkan time(waktu) menggunakan otomatis
     next: {
       // 1 jam x 24 jam = 1 hari
