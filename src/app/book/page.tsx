@@ -2,7 +2,7 @@ type DetailBookPage = { params: { slug: string[] } };
 
 // mengambil data books
 async function getAllDataBook() {
-  const res = await fetch("http://localhost:3000/api/bookss", {
+  const res = await fetch("http://localhost:3000/api/book", {
     cache: "no-cache",
     // melakukan update data books berdasarkan time(waktu) menggunakan cara manual
     next: {
