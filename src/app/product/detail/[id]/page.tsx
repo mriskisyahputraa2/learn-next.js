@@ -1,5 +1,4 @@
 import { getDataProduct } from "@/app/services/products";
-import Link from "next/link";
 
 export default async function DetailProductPage(props: any) {
   const { params } = props;
