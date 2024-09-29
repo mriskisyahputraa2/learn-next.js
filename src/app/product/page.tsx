@@ -1,28 +1,11 @@
+import Link from "next/link";
+import { getDataProduct } from "../services/products";
+
 type DetailProductPage = { params: { slug: string[] } };
-
-// mengambil data products
-async function getAllDataProduct() {
-  //   const res = await fetch("https://fakestoreapi.com/products");
-  const res = await fetch("http://localhost:3000/api/product", {
-    cache: "no-store",
-    // melakukan update data products berdasarkan time(waktu) menggunakan otomatis
-    next: {
-      // 1 jam x 24 jam = 1 hari
-      revalidate: 30,
-      // tags: ["products"],
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error("Data Failed");
-  }
-
-  return res.json();
-}
 
 export default async function DetailProductPage(props: DetailProductPage) {
   const { params } = props;
-  const products = await getAllDataProduct();
+  const products = await getDataProduct("http://localhost:3000/api/product");
   console.log(products.data);
   return (
     <>
@@ -40,41 +23,35 @@ export default async function DetailProductPage(props: DetailProductPage) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10 px-4">
         {products.data.length > 0 &&
           products.data.map((product: any) => (
-            <div
+            <Link
+              href={`/product/detail/${product.id}`}
               key={product.id}
               className="w-full bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 transition-transform transform hover:scale-105"
             >
               {/* Gambar Produk */}
-              <a href="#">
-                <img
-                  className="p-6 rounded-t-lg w-full h-64 object-contain"
-                  src={product.image}
-                  alt={product.title}
-                />
-              </a>
+              <img
+                className="p-6 rounded-t-lg w-full h-64 object-contain"
+                src={product.image}
+                alt={product.title}
+              />
 
               {/* Detail Produk */}
               <div className="px-6 pb-6">
-                <a href="#">
-                  <h5 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
-                    {product.title}
-                  </h5>
-                </a>
+                <h5 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
+                  {product.title}
+                </h5>
 
                 {/* Harga dan Tombol */}
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-2xl font-bold text-gray-900 dark:text-white">
                     ${product.price}
                   </span>
-                  <a
-                    href="#"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
+                  <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Add to cart
-                  </a>
+                  </button>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
       </div>
 

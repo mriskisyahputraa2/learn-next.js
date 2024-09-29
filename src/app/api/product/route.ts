@@ -21,6 +21,13 @@ const data = [
     image:
       "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8301a11f-4b63-4034-bd1e-ff080dcad33b/PEGASUS+EASYON+FP.png",
   },
+  {
+    id: 4,
+    title: "Nike Pegasus EasyOn Blueprint",
+    price: 20000,
+    image:
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8301a11f-4b63-4034-bd1e-ff080dcad33b/PEGASUS+EASYON+FP.png",
+  },
 ];
 
 export async function GET(request: NextRequest) {
