@@ -15,24 +15,24 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="h-screen w-100 flex justify-center items-center">
-        <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900">
+        <div className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-10 sm:p-12 lg:w-1/3 w-full mx-4">
+          <h3 className="text-3xl font-semibold text-center text-gray-800 dark:text-white mb-8">
+            Sign in Account
+          </h3>
           <form className="space-y-6" onSubmit={(e) => handleLogin(e)}>
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center">
-              Sign in
-            </h3>
             <div>
               <label
                 htmlFor="email"
                 className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
               >
-                Email
+                Email Address
               </label>
               <input
                 type="email"
                 name="email"
                 id="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 dark:bg-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500 dark:border-gray-600"
                 placeholder="name@company.com"
                 required
               />
@@ -48,24 +48,24 @@ export default function LoginPage() {
                 type="password"
                 name="password"
                 id="password"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 dark:bg-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500 dark:border-gray-600"
                 placeholder="••••••••"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800"
             >
-              Login to your account
+              Sign In
             </button>
-            <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-              Not registered?{" "}
+            <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+              Don't have an account?{" "}
               <Link
                 href="/register"
-                className="text-blue-700 hover:underline dark:text-blue-500"
+                className="text-indigo-600 hover:underline dark:text-indigo-400"
               >
-                Create account
+                Sign up here
               </Link>
             </div>
           </form>
