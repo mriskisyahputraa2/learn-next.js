@@ -18,7 +18,7 @@ export default async function DetailProductPage(props: any) {
         />
 
         <div className="bg-white p-4 px-6">
-          <h3 className="font-bold text-2xl">{product.data.title}</h3>
+          <h3 className="font-bold text-2xl">{product.data.name}</h3>
           <p className="font-bold text-sm">Price: ${product.data.price}</p>
         </div>
       </Modal>

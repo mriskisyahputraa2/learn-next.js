@@ -32,13 +32,13 @@ export default async function DetailProductPage(props: DetailProductPage) {
               <img
                 className="p-6 rounded-t-lg w-full h-64 object-contain"
                 src={product.image}
-                alt={product.title}
+                alt={product.name}
               />
 
               {/* Detail Produk */}
               <div className="px-6 pb-6">
                 <h5 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
-                  {product.title}
+                  {product.name}
                 </h5>
 
                 {/* Harga dan Tombol */}
