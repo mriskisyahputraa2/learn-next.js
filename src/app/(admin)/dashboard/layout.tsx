@@ -13,7 +13,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <div className="p-5">
+      <div className="p-5 ">
         <div>{children}</div>
         <div className="mt-5 flex justify-center items-center">
           {products}

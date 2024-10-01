@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./navbar";
 import { usePathname } from "next/navigation";
+import { SessionProvider } from "next-auth/react";
 
 // nonaktifkan navbar login dan register
 const disableNavbar = ["/login", "/register"];
@@ -29,8 +30,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const [state, setState] = useState(0);
-
   const pathName = usePathname();
 
   return (
@@ -38,10 +37,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {!disableNavbar.includes(pathName) && <Navbar />}
-        {/* <div>Layout {state}</div> */}
-        {/* <button onClick={() => setState(state + 1)}>Klik</button> */}
-        {children}
+        <SessionProvider>
+          {!disableNavbar.includes(pathName) && <Navbar />}
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

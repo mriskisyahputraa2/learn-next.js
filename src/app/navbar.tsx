@@ -1,82 +1,238 @@
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React, { Fragment } from "react";
+import { usePathname } from "next/navigation";
+import React, { Fragment, useState } from "react";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
   const pathName = usePathname();
-  const router = useRouter();
+  // const router = useRouter();
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Function to close the menu when a link is clicked
+  const handleLinkClick = () => setIsOpen(false);
+
+  const { status }: { status: string } = useSession();
 
   return (
     <Fragment>
-      <nav className="flex justify-between bg-gray-800 py-2 px-5">
-        <h1 className="text-white">Navbar</h1>
-        <div className="flex">
-          <ul className="flex ml-5">
-            <Link href="/">
-              <li
-                className={`mr-3 ${
-                  pathName === "/" ? "text-blue-300" : "text-white"
-                } cursor-pointer`}
-              >
-                Home
-              </li>
+      <nav className="bg-gray-800 py-4 px-5">
+        <div className="flex justify-between items-center">
+          {/* Brand / Logo */}
+          <h1 className="text-white text-lg">Navbar</h1>
+
+          {/* Hamburger Icon for Mobile */}
+          <div className="lg:hidden">
+            <button
+              onClick={toggleMenu}
+              className="text-white focus:outline-none"
+            >
+              {isOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {/* Links for Desktop */}
+          <div className="hidden lg:flex space-x-6">
+            <Link
+              href="/"
+              className={`${
+                pathName === "/" ? "text-blue-300" : "text-white"
+              } hover:text-blue-400`}
+            >
+              Home
             </Link>
-            <Link href="/product">
-              <li
-                className={`mr-3 ${
-                  pathName === "/product" ? "text-blue-300" : "text-white"
-                } cursor-pointer`}
-              >
-                Products
-              </li>
+            <Link
+              href="/product"
+              className={`${
+                pathName === "/product" ? "text-blue-300" : "text-white"
+              } hover:text-blue-400`}
+            >
+              Products
             </Link>
-            <Link href="/book">
-              <li
-                className={`mr-3 ${
-                  pathName === "/book" ? "text-blue-300" : "text-white"
-                } cursor-pointer`}
-              >
-                Books
-              </li>
+            <Link
+              href="/book"
+              className={`${
+                pathName === "/book" ? "text-blue-300" : "text-white"
+              } hover:text-blue-400`}
+            >
+              Books
             </Link>
-            <Link href="/about">
-              <li
-                className={`mr-3 ${
-                  pathName === "/about" ? "text-blue-300" : "text-white"
-                } cursor-pointer`}
-              >
-                About
-              </li>
+            <Link
+              href="/about"
+              className={`${
+                pathName === "/about" ? "text-blue-300" : "text-white"
+              } hover:text-blue-400`}
+            >
+              About
             </Link>
-            <Link href="/about/profile">
-              <li
-                className={`mr-3 ${
-                  pathName === "/about/profile" ? "text-blue-300" : "text-white"
-                } cursor-pointer`}
-              >
-                Profile
-              </li>
+            <Link
+              href="/about/profile"
+              className={`${
+                pathName === "/about/profile" ? "text-blue-300" : "text-white"
+              } hover:text-blue-400`}
+            >
+              Profile
             </Link>
-            <Link href="/contact">
-              <li
-                className={`mr-3 ${
-                  pathName === "/contact" ? "text-blue-300" : "text-white"
-                } cursor-pointer`}
-              >
-                Contact
-              </li>
+            <Link
+              href="/contact"
+              className={`${
+                pathName === "/contact" ? "text-blue-300" : "text-white"
+              } hover:text-blue-400`}
+            >
+              Contact
             </Link>
-          </ul>
+          </div>
+
+          {/* Login Button for Desktop */}
+          <div className="hidden lg:block">
+            {status === "authenticated" ? (
+              <button
+                onClick={() => {
+                  signOut();
+                }}
+                className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer text-center"
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  signIn();
+                }}
+                className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer text-center"
+              >
+                Login
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="">
-          <button
-            onClick={() => router.push("/login")}
-            className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer text-center"
-          >
-            Login
-          </button>
-        </div>
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="lg:hidden mt-4">
+            <ul className="space-y-4">
+              <li>
+                <Link
+                  href="/"
+                  onClick={handleLinkClick}
+                  className={`block ${
+                    pathName === "/" ? "text-blue-300" : "text-white"
+                  } hover:text-blue-400`}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/product"
+                  onClick={handleLinkClick}
+                  className={`block ${
+                    pathName === "/product" ? "text-blue-300" : "text-white"
+                  } hover:text-blue-400`}
+                >
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/book"
+                  onClick={handleLinkClick}
+                  className={`block ${
+                    pathName === "/book" ? "text-blue-300" : "text-white"
+                  } hover:text-blue-400`}
+                >
+                  Books
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  onClick={handleLinkClick}
+                  className={`block ${
+                    pathName === "/about" ? "text-blue-300" : "text-white"
+                  } hover:text-blue-400`}
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about/profile"
+                  onClick={handleLinkClick}
+                  className={`block ${
+                    pathName === "/about/profile"
+                      ? "text-blue-300"
+                      : "text-white"
+                  } hover:text-blue-400`}
+                >
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  onClick={handleLinkClick}
+                  className={`block ${
+                    pathName === "/contact" ? "text-blue-300" : "text-white"
+                  } hover:text-blue-400`}
+                >
+                  Contact
+                </Link>
+              </li>
+              <li>
+                {status === "authenticated" ? (
+                  <button
+                    onClick={() => {
+                      signOut();
+                    }}
+                    className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer text-center"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      signIn();
+                    }}
+                    className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer text-center"
+                  >
+                    Login
+                  </button>
+                )}
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
     </Fragment>
   );
