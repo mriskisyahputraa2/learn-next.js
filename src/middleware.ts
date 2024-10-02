@@ -9,5 +9,5 @@ export default function Middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/contact"],
+  matcher: ["/dashboard/:path*", "/book/:path*"],
 };
