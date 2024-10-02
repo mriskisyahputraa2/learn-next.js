@@ -1,17 +1,47 @@
+"use client";
+
 import Link from "next/link";
 import { getDataBook } from "../services/books";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 type DetailBookPage = { params: { slug: string[] } };
 
-export default async function DetailBookPage(props: DetailBookPage) {
-  //   const { params } = props;
-  const books = await getDataBook("http://localhost:3000/api/book");
-  console.log(books.data);
+export default function DetailBookPage(props: DetailBookPage) {
+  const { params } = props;
+  const { data: session, status }: { data: any; status: string } = useSession();
+  const router = useRouter();
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      const response = await getDataBook("http://localhost:3000/api/book");
+      setBooks(response.data);
+    };
+
+    fetchBooks();
+  }, []);
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    } else {
+      if ((session !== undefined && session?.user.role) !== "admin") {
+        router.push("/");
+      }
+    }
+  }, [status, router, session?.user.role, session]);
+
+  // console.log(books.data);
 
   return (
     <>
       {/* Judul dan Deskripsi */}
       <div className="text-center mt-8">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+          {params.slug ? "Detail Product Page" : "Our Products"}
+        </h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2">
           Explore our range of high-quality books
         </p>
@@ -19,8 +49,8 @@ export default async function DetailBookPage(props: DetailBookPage) {
 
       {/* Grid Responsif untuk Book */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10 px-4">
-        {books.data.length > 0 &&
-          books.data.map((book: any) => (
+        {books.length > 0 &&
+          books.map((book: any) => (
             <Link
               href={`/book/detail/${book.id}`}
               key={book.id}
