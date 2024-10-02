@@ -6,7 +6,7 @@ import Navbar from "./navbar";
 import { usePathname } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 
-// nonaktifkan navbar login dan register
+// nonaktifkan navbar login dan register, ketika masuk kehalaman login dan register
 const disableNavbar = ["/login", "/register"];
 
 const geistSans = localFont({
