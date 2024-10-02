@@ -10,11 +10,16 @@ export default function DashboardPage() {
 
   useEffect(() => {
     // ?. (optional chaining), untuk mengakses user.role secara aman
-    if (status === "unauthenticated" && session?.user.role !== "admin") {
+    if (status === "unauthenticated") {
       router.push("/login");
+    } else {
+      if (session !== undefined && session?.user.role !== "admin") {
+        router.push("/");
+      }
     }
-  }, [status, router, session?.user.role]);
-
+  }, [status, router, session?.user.role, session]);
+  // console.log(session);
+  // console.log(status);
   return (
     <>
       <div className="w-full h-96 bg-gray-300 rounded-[12px] flex justify-center items-center">
