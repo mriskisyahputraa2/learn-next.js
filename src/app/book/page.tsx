@@ -2,16 +2,14 @@
 
 import Link from "next/link";
 import { getDataBook } from "../services/books";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 type DetailBookPage = { params: { slug: string[] } };
 
 export default function DetailBookPage(props: DetailBookPage) {
   const { params } = props;
-  const { data: session, status }: { data: any; status: string } = useSession();
-  const router = useRouter();
+  // const { data: session, status }: { data: any; status: string } = useSession();
+  // const router = useRouter();
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -22,18 +20,6 @@ export default function DetailBookPage(props: DetailBookPage) {
 
     fetchBooks();
   }, []);
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    } else {
-      if ((session !== undefined && session?.user.role) !== "admin") {
-        router.push("/");
-      }
-    }
-  }, [status, router, session?.user.role, session]);
-
-  // console.log(books.data);
 
   return (
     <>
