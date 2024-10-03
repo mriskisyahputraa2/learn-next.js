@@ -8,13 +8,13 @@ import "react-toastify/dist/ReactToastify.css";
 export default function RegisterPage() {
   const { push } = useRouter();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
 
     setError("");
-    setLoading(true);
+    setIsLoading(true);
 
     const res = await fetch("api/auth/register", {
       method: "POST",
@@ -25,13 +25,12 @@ export default function RegisterPage() {
       }),
     });
     if (res.status === 200) {
-      setLoading(false);
+      setIsLoading(false);
       push("/login");
     } else {
-      setLoading(false);
+      setIsLoading(false);
       const errorMessage = "Email already exists!"; // Contoh pesan error
       toast.error(errorMessage); // Menampilkan pesan error menggunakan toast
-      console.log(res);
     }
   };
 
@@ -95,10 +94,11 @@ export default function RegisterPage() {
               />
             </div>
             <button
+              disabled={isLoading}
               type="submit"
               className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800"
             >
-              Sign Up
+              {isLoading ? "Loading..." : "Sign Up"}
             </button>
             <div className="text-center text-sm text-gray-500 dark:text-gray-400">
               Already have an account?{" "}

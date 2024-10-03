@@ -12,7 +12,7 @@ export default function Navbar() {
   // Function to close the menu when a link is clicked
   const handleLinkClick = () => setIsOpen(false);
 
-  const { status }: { status: string } = useSession();
+  const { data: session, status }: { data: any; status: string } = useSession();
 
   return (
     <Fragment>
@@ -116,14 +116,17 @@ export default function Navbar() {
           {/* Login Button for Desktop */}
           <div className="hidden lg:block">
             {status === "authenticated" ? (
-              <button
-                onClick={() => {
-                  signOut();
-                }}
-                className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer text-center"
-              >
-                Logout
-              </button>
+              <div className="flex items-center space-x-2">
+                <span className="text-white text-sm font-medium">
+                  {session?.user?.fullname}
+                </span>
+                <button
+                  onClick={() => signOut()}
+                  className="bg-white  px-3 py-1 rounded-lg transition"
+                >
+                  Logout
+                </button>
+              </div>
             ) : (
               <button
                 onClick={() => {
@@ -211,14 +214,17 @@ export default function Navbar() {
               </li>
               <li>
                 {status === "authenticated" ? (
-                  <button
-                    onClick={() => {
-                      signOut();
-                    }}
-                    className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer text-center"
-                  >
-                    Logout
-                  </button>
+                  <div className="flex flex-col space-x-2">
+                    <span className="text-white text-sm font-medium">
+                      {session?.user?.fullname}
+                    </span>
+                    <button
+                      onClick={() => signOut()}
+                      className="bg-white px-3 py-1 rounded-lg transition mt-4"
+                    >
+                      Logout
+                    </button>
+                  </div>
                 ) : (
                   <button
                     onClick={() => {
