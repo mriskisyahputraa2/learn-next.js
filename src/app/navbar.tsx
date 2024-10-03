@@ -6,7 +6,6 @@ import React, { Fragment, useState } from "react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathName = usePathname();
-  // const router = useRouter();
   const toggleMenu = () => setIsOpen(!isOpen);
 
   // Function to close the menu when a link is clicked
@@ -96,9 +95,9 @@ export default function Navbar() {
               About
             </Link>
             <Link
-              href="/about/profile"
+              href="/profile"
               className={`${
-                pathName === "/about/profile" ? "text-blue-300" : "text-white"
+                pathName === "/profile" ? "text-blue-300" : "text-white"
               } hover:text-blue-400`}
             >
               Profile
@@ -190,12 +189,10 @@ export default function Navbar() {
               </li>
               <li>
                 <Link
-                  href="/about/profile"
+                  href="/profile"
                   onClick={handleLinkClick}
                   className={`block ${
-                    pathName === "/about/profile"
-                      ? "text-blue-300"
-                      : "text-white"
+                    pathName === "/profile" ? "text-blue-300" : "text-white"
                   } hover:text-blue-400`}
                 >
                   Profile
