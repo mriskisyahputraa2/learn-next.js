@@ -8,7 +8,7 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: "@Mriski123",
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       type: "credentials",
@@ -47,16 +47,28 @@ const authOptions: NextAuthOptions = {
       return token;
     },
 
+    // async session({ session, token }) {
+    //   if ("email" in token) {
+    //     session.user.email = token.email;
+    //   }
+    //   if ("fullname" in token) {
+    //     session.user.fullname = token.fullname;
+    //   }
+    //   if ("role" in token) {
+    //     session.user.role = token.role;
+    //   }
+    //   return session;
+    // },
+
     async session({ session, token }) {
-      if ("email" in token) {
-        session.user.email = token.email;
-      }
-      if ("fullname" in token) {
-        session.user.fullname = token.fullname;
-      }
-      if ("role" in token) {
-        session.user.role = token.role;
-      }
+      const fieldsToUpdate = ["email", "fullname", "role"];
+
+      fieldsToUpdate.forEach((field) => {
+        if (field in token) {
+          session.user[field] = token[field];
+        }
+      });
+
       return session;
     },
   },

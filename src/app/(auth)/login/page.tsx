@@ -6,10 +6,11 @@ import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function LoginPage() {
+export default function LoginPage({ searchParams }) {
   const { push } = useRouter();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const callbackUrl = searchParams.callbackUrl || "/";
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -21,12 +22,12 @@ export default function LoginPage() {
         redirect: false,
         email: e.target.email.value,
         password: e.target.password.value,
-        callbackUrl: "/dashboard",
+        callbackUrl,
       });
 
       if (!res?.error) {
         setIsLoading(false);
-        push("/dashboard");
+        push(callbackUrl);
       } else {
         if (res.status === 401) {
           // setIsError("Email or Password Incorrect");
