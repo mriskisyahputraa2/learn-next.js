@@ -93,6 +93,13 @@ export default function LoginPage({ searchParams }) {
             >
               {isLoading ? "Loading..." : "Sign In"}
             </button>
+            <button
+              type="button"
+              onClick={() => signIn("google", { callbackUrl, redirect: false })}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800"
+            >
+              Login With Google
+            </button>
             <div className="text-center text-sm text-gray-500 dark:text-gray-400">
               Don't have an account?{" "}
               <Link

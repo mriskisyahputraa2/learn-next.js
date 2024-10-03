@@ -6,6 +6,7 @@ import {
   getDocs,
   getFirestore,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 
@@ -88,11 +89,43 @@ export async function login(data: { email: string }) {
     id: doc.id,
     ...doc.data(),
   }));
-  console.log(user);
 
   if (user) {
     return user[0];
   } else {
     return null;
+  }
+}
+
+// service login with google cloud
+export async function loginWithGoogle(data: any, callback: any) {
+  const userQuery = query(
+    collection(firestore, "users"),
+    where("email", "==", data.email)
+  );
+
+  const snapshot = await getDocs(userQuery);
+  const user: any = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  // validasi, jika panjang user lebih dari 0
+  if (user.length > 0) {
+    data.role = user[0].role; // sesuaikan role user
+
+    // update data user berdasarkan Id user
+    await updateDoc(doc(firestore, "users", user[0].id), data).then(() => {
+      callback({ staus: true, data: data });
+    });
+
+    // kalo tidak
+  } else {
+    data.role = "member"; // default role user adalah "member"
+
+    // tambahkan data user
+    await addDoc(collection(firestore, "users"), data).then(() => {
+      callback({ staus: true, data: data });
+    });
   }
 }
