@@ -4,14 +4,13 @@ import { usePathname } from "next/navigation";
 import React, { Fragment, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { CiLogin, CiLogout } from "react-icons/ci";
-import { FiLogIn } from "react-icons/fi";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathName = usePathname();
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Function to close the menu when a link is clicked
   const handleLinkClick = () => setIsOpen(false);
 
   const { data: session, status } = useSession();
@@ -43,73 +42,47 @@ export default function Navbar() {
 
           {/* Links for Desktop */}
           <div className="hidden lg:flex space-x-8">
-            <Link
-              href="/"
-              className={`${
-                pathName === "/" ? "text-blue-400" : "text-gray-300"
-              } hover:text-blue-500 transition duration-300`}
-            >
-              Home
-            </Link>
-            <Link
-              href="/product"
-              className={`${
-                pathName === "/product" ? "text-blue-400" : "text-gray-300"
-              } hover:text-blue-500 transition duration-300`}
-            >
-              Products
-            </Link>
-            <Link
-              href="/book"
-              className={`${
-                pathName === "/book" ? "text-blue-400" : "text-gray-300"
-              } hover:text-blue-500 transition duration-300`}
-            >
-              Books
-            </Link>
-            <Link
-              href="/about"
-              className={`${
-                pathName === "/about" ? "text-blue-400" : "text-gray-300"
-              } hover:text-blue-500 transition duration-300`}
-            >
-              About
-            </Link>
-            <Link
-              href="/profile"
-              className={`${
-                pathName === "/profile" ? "text-blue-400" : "text-gray-300"
-              } hover:text-blue-500 transition duration-300`}
-            >
-              Profile
-            </Link>
-            <Link
-              href="/contact"
-              className={`${
-                pathName === "/contact" ? "text-blue-400" : "text-gray-300"
-              } hover:text-blue-500 transition duration-300`}
-            >
-              Contact
-            </Link>
+            {["/", "/product", "/book", "/about", "/profile", "/contact"].map(
+              (link) => (
+                <Link
+                  key={link}
+                  href={link}
+                  className={`${
+                    pathName === link ? "text-blue-400" : "text-gray-300"
+                  } hover:text-blue-500 transition duration-300`}
+                >
+                  {link === "/"
+                    ? "Home"
+                    : link.charAt(1).toUpperCase() + link.slice(2)}
+                </Link>
+              )
+            )}
           </div>
 
-          {/* Login Button for Desktop */}
-          <div className="hidden lg:block">
+          {/* Profile Image and Login/Logout Button for Desktop */}
+          <div className="hidden lg:flex items-center space-x-3">
             {status === "authenticated" ? (
-              <div className="flex items-center space-x-3">
+              <>
+                <Image
+                  src="/images/profile.webp"
+                  alt="profile"
+                  width="48"
+                  height="48"
+                  className="rounded-full"
+                />
                 <span className="text-gray-200 text-sm">
                   {session?.user?.fullname || session?.user?.name}
                 </span>
                 <CiLogout
                   onClick={() => signOut()}
-                  className=" text-red-500 rounded-full transition-all duration-200 ease-in-out w-7 h-7 flex items-center justify-center"
+                  className="text-red-500 cursor-pointer transition-all duration-200 ease-in-out w-7 h-7"
                   title="Logout"
                 />
-              </div>
+              </>
             ) : (
               <CiLogin
                 onClick={() => signIn()}
-                className=" text-blue-500 rounded-full transition-all duration-200 ease-in-out  w-7 h-7 flex items-center justify-center"
+                className="text-blue-500 cursor-pointer transition-all duration-200 ease-in-out w-7 h-7"
                 title="Login"
               />
             )}
@@ -118,94 +91,50 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden mt-4">
+          <div className="lg:hidden mt-4 bg-gray-800 rounded-lg p-4">
             <ul className="space-y-4">
-              <li>
-                <Link
-                  href="/"
-                  onClick={handleLinkClick}
-                  className={`block ${
-                    pathName === "/" ? "text-blue-400" : "text-gray-300"
-                  } hover:text-blue-500 transition duration-300`}
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/product"
-                  onClick={handleLinkClick}
-                  className={`block ${
-                    pathName === "/product" ? "text-blue-400" : "text-gray-300"
-                  } hover:text-blue-500 transition duration-300`}
-                >
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/book"
-                  onClick={handleLinkClick}
-                  className={`block ${
-                    pathName === "/book" ? "text-blue-400" : "text-gray-300"
-                  } hover:text-blue-500 transition duration-300`}
-                >
-                  Books
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  onClick={handleLinkClick}
-                  className={`block ${
-                    pathName === "/about" ? "text-blue-400" : "text-gray-300"
-                  } hover:text-blue-500 transition duration-300`}
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/profile"
-                  onClick={handleLinkClick}
-                  className={`block ${
-                    pathName === "/profile" ? "text-blue-400" : "text-gray-300"
-                  } hover:text-blue-500 transition duration-300`}
-                >
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  onClick={handleLinkClick}
-                  className={`block ${
-                    pathName === "/contact" ? "text-blue-400" : "text-gray-300"
-                  } hover:text-blue-500 transition duration-300`}
-                >
-                  Contact
-                </Link>
-              </li>
+              {["/", "/product", "/book", "/about", "/profile", "/contact"].map(
+                (link) => (
+                  <li key={link}>
+                    <Link
+                      href={link}
+                      onClick={handleLinkClick}
+                      className={`block ${
+                        pathName === link ? "text-blue-400" : "text-gray-300"
+                      } hover:text-blue-500 transition duration-300`}
+                    >
+                      {link === "/"
+                        ? "Home"
+                        : link.charAt(1).toUpperCase() + link.slice(2)}
+                    </Link>
+                  </li>
+                )
+              )}
               <li>
                 {status === "authenticated" ? (
-                  <div className="flex flex-col items-start space-y-3 mt-4">
-                    <span className="text-gray-200 text-sm">
+                  <div className="flex space-y-3">
+                    <Image
+                      src="/images/profile.webp"
+                      alt="profile"
+                      width="64"
+                      height="64"
+                      className="rounded-full"
+                    />
+                    <span className="text-gray-200 text-sm mr-3">
                       {session?.user?.fullname || session?.user?.name}
                     </span>
-                    <button
+                    <CiLogout
                       onClick={() => signOut()}
-                      className="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition"
-                    >
-                      Logout
-                    </button>
+                      className="text-red-500 cursor-pointer transition-all duration-200 ease-in-out w-7 h-7"
+                      title="Logout"
+                    />
                   </div>
                 ) : (
-                  <button
+                  <CiLogin
                     onClick={() => signIn()}
-                    className="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition mt-4"
-                  >
-                    Login
-                  </button>
+                    className="text-blue-500 cursor-pointer transition-all duration-200 ease-in-out w-7 h-7"
+                    title="Login"
+                  />
                 )}
               </li>
             </ul>
