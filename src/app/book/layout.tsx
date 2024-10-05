@@ -1,3 +1,4 @@
+import { roboto_mono } from "../../../public/fonts/font";
 export default function Layout({
   children,
   modal,
@@ -7,7 +8,7 @@ export default function Layout({
 }) {
   return (
     <>
-      {children}
+      <div className={roboto_mono.className}>{children}</div>
       {modal}
     </>
   );
