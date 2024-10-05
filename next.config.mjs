@@ -8,8 +8,6 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
-    ],
-    remotePatterns: [
       {
         protocol: "https",
         hostname: "cdn.gramedia.com",
