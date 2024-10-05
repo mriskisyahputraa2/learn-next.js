@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { getDataBook } from "../services/books";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type DetailBookPage = { params: { slug: string[] } };
 
@@ -43,10 +44,13 @@ export default function DetailBookPage(props: DetailBookPage) {
               className="w-full bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 transition-transform transform hover:scale-105"
             >
               {/* Gambar Book */}
-              <img
+              <Image
                 className="p-6 rounded-t-lg w-full h-64 object-contain"
                 src={book.image}
                 alt={book.title}
+                width={500}
+                height={500}
+                loading="lazy"
               />
 
               {/* Detail Book */}

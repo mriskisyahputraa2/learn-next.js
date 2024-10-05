@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getDataProduct } from "../services/products";
+import Image from "next/image";
 
 type DetailProductPage = { params: { slug: string[] } };
 
@@ -29,10 +30,15 @@ export default async function DetailProductPage(props: DetailProductPage) {
               className="w-full bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 transition-transform transform hover:scale-105"
             >
               {/* Gambar Produk */}
-              <img
+              <Image
                 className="p-6 rounded-t-lg w-full h-64 object-contain"
                 src={product.image}
                 alt={product.name}
+                width={500}
+                height={500}
+                // priority, akan membuat mem-proriataskan gambar dahulu ketika halaman di load(refresh)
+                // priority
+                loading="lazy"
               />
 
               {/* Detail Produk */}
