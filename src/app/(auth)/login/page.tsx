@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage({ searchParams }) {
   const { push } = useRouter();
@@ -93,11 +94,13 @@ export default function LoginPage({ searchParams }) {
             >
               {isLoading ? "Loading..." : "Sign In"}
             </button>
+            <hr />
             <button
               type="button"
               onClick={() => signIn("google", { callbackUrl, redirect: false })}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800"
+              className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-900 font-semibold py-3 rounded-lg shadow-lg transition duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600"
             >
+              <FcGoogle className="mr-2 text-2xl" />
               Login With Google
             </button>
             <div className="text-center text-sm text-gray-500 dark:text-gray-400">

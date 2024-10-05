@@ -117,7 +117,7 @@ export default function Navbar() {
             {status === "authenticated" ? (
               <div className="flex items-center space-x-2">
                 <span className="text-white text-sm font-medium">
-                  {session?.user?.fullname}
+                  {session?.user?.fullname || session?.user?.name}
                 </span>
                 <button
                   onClick={() => signOut()}
@@ -213,7 +213,7 @@ export default function Navbar() {
                 {status === "authenticated" ? (
                   <div className="flex flex-col space-x-2">
                     <span className="text-white text-sm font-medium">
-                      {session?.user?.fullname}
+                      {session?.user?.fullname || session?.user?.name}
                     </span>
                     <button
                       onClick={() => signOut()}
