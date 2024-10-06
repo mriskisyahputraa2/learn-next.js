@@ -7,7 +7,7 @@ type DetailProductPage = { params: { slug: string[] } };
 export default async function DetailProductPage(props: DetailProductPage) {
   const { params } = props;
   const products = await getDataProduct("http://localhost:3000/api/product");
-  // console.log(products.data);
+  // console.log("Data Product", products.data);
   return (
     <>
       {/* Judul dan Deskripsi */}
@@ -62,7 +62,7 @@ export default async function DetailProductPage(props: DetailProductPage) {
       </div>
 
       {/* Detail Produk jika ada parameter slug */}
-      {params.slug && (
+      {/* {params.slug && (
         <div className="mt-10 text-gray-800 dark:text-white text-center">
           <p>
             <strong>Name Product:</strong> {params.slug[0]}
@@ -74,7 +74,7 @@ export default async function DetailProductPage(props: DetailProductPage) {
             <strong>ID:</strong> {params.slug[2]}
           </p>
         </div>
-      )}
+      )} */}
     </>
   );
 }
