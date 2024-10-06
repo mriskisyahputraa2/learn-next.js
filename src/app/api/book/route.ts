@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
   const id = searchParams.get("id");
 
   if (id) {
-    const detailBook = await retrieveDataById("books", "id");
+    const detailBook = await retrieveDataById("books", id);
     if (detailBook) {
       return NextResponse.json({
         status: 200,
