@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { getDataProduct } from "../services/products";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Products - MY APP",
+  description: "Halaman Product",
+  icons: {
+    icon: "/images/product.png",
+  },
+};
 
 type DetailProductPage = { params: { slug: string[] } };
 

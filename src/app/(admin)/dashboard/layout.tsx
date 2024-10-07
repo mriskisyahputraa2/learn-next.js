@@ -1,3 +1,13 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard - MY APP",
+  description: "Halaman Dashboard",
+  icons: {
+    icon: "/images/dashboard.png",
+  },
+};
+
 export default function Layout({
   children,
   products,
