@@ -26,7 +26,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/robots.tx"
+    "src/app/robots.tx",
+    "jest.config.mjs",
+    "jest.config.js"
   ],
   "exclude": ["node_modules"]
 }
